@@ -1,0 +1,6 @@
+[deploy]
+startCommand = "gunicorn app:app --bind 0.0.0.0:$PORT"
+
+[deploy.variables]
+RAILPACK_BUILD_APT_PACKAGES = "libpango-1.0-0 libpangoft2-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf-2.0-0 libffi-dev libcairo2"
+RAILPACK_DEPLOY_APT_PACKAGES = "libpango-1.0-0 libpangoft2-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf-2.0-0 libffi-dev libcairo2"
