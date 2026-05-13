@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Invoice</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="invoice-box">
+
+<div class="invoice-topbar">
+
+    <div>
+
+        <h1 class="brand-name">
+            InvoiceFlow
+        </h1>
+
+        <p class="brand-subtitle">
+            Professional Invoice Solution
+        </p>
+
+    </div>
+
+    <div class="invoice-badge">
+
+        PAID
+
+    </div>
+
+</div>
+
+<div class="invoice-header">
+
+    <div>
+
+        <h1 class="invoice-title">
+            INVOICE
+        </h1>
+
+        <div class="invoice-meta">
+
+            <p>
+                <strong>Invoice ID:</strong>
+                {{ invoice_id }}
+            </p>
+
+            <p>
+                <strong>Date:</strong>
+                {{ date }}
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <hr>
+
+<div class="billing-grid">
+
+    <div class="billing-card">
+
+        <h3>
+            Billed To
+        </h3>
+
+        <p>{{ customer_name }}</p>
+
+        <p>{{ customer_email }}</p>
+
+    </div>
+
+    <div class="billing-card">
+
+        <h3>
+            Payment Method
+        </h3>
+
+        <p>Bank Transfer</p>
+
+        <p>Online Payment</p>
+
+    </div>
+
+</div>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Item</th>
+
+                <th>Qty</th>
+
+                <th>Price</th>
+
+                <th>Total</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for item in items %}
+
+            <tr>
+
+                <td>{{ item.name }}</td>
+
+                <td>{{ item.qty }}</td>
+
+                <td>₹{{ item.price }}</td>
+
+                <td>₹{{ item.total }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    <div class="total-section">
+
+        <div class="total-row">
+
+            <span>Subtotal</span>
+
+            <span>₹{{ subtotal }}</span>
+
+        </div>
+
+        <div class="total-row">
+
+            <span>GST (18%)</span>
+
+            <span>₹{{ tax }}</span>
+
+        </div>
+
+        <div class="total-row grand-total">
+
+            <span>Total</span>
+
+            <span>₹{{ grand_total }}</span>
+
+        </div>
+
+    </div>
+
+    <div class="invoice-footer">
+
+    <p>
+        Thank you for your business.
+    </p>
+
+    <span>
+        Generated using InvoiceFlow
+    </span>
+
+</div>
+    {% if show_download %}
+
+    <div class="download-section">
+
+        <a href="/download/{{ invoice_id }}">
+
+            <button class="download-btn">
+                Download PDF
+            </button>
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

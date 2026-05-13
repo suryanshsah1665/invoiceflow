@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body class="dashboard-page">
+
+<div class="layout">
+
+    <aside class="sidebar">
+
+        <div>
+
+            <h2 class="logo">
+                InvoiceFlow
+            </h2>
+
+            <nav class="nav-links">
+
+                <a href="/dashboard"
+                   class="active-link">
+
+                    Dashboard
+
+                </a>
+
+            </nav>
+
+        </div>
+
+    </aside>
+
+    <main class="main-content">
+
+        <div class="topbar">
+
+            <div>
+
+    <p class="welcome-text">
+
+        Welcome back,
+
+        <span>
+            {{ current_user.username }}
+        </span>
+
+    </p>
+
+    <h1 class="page-title">
+        Dashboard
+    </h1>
+
+    <p class="page-subtitle">
+        Manage all invoices from one place
+    </p>
+
+</div>
+
+            <a href="/">
+
+                <button class="primary-btn">
+
+                    + New Invoice
+
+                </button>
+
+            </a>
+            <a href="/logout">
+
+    <button class="logout-btn">
+
+        Logout
+
+    </button>
+
+</a>
+
+        </div>
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="card-top">
+
+                    <p class="stat-label">
+                        Total Invoices
+                    </p>
+
+                    <div class="card-icon blue-bg">
+                        📄
+                    </div>
+
+                </div>
+
+                <h2 class="stat-number">
+                    {{ invoices|length }}
+                </h2>
+
+                <p class="card-subtext">
+                    Total invoices created
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <div class="card-top">
+
+                    <p class="stat-label">
+                        Revenue
+                    </p>
+
+                    <div class="card-icon green-bg">
+                        ₹
+                    </div>
+
+                </div>
+
+                <h2 class="stat-number">
+                    ₹{{ paid_revenue }}
+                </h2>
+
+                <p class="card-subtext">
+                    Paid invoice revenue
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <div class="card-top">
+
+                    <p class="stat-label">
+                        Outstanding
+                    </p>
+
+                    <div class="card-icon orange-bg">
+                        !
+                    </div>
+
+                </div>
+
+                <h2 class="stat-number">
+                    ₹{{ outstanding_amount }}
+                </h2>
+
+                <p class="card-subtext">
+                    Pending & overdue invoices
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <div class="card-top">
+
+                    <p class="stat-label">
+                        Status
+                    </p>
+
+                    <div class="card-icon orange-bg">
+                        ✓
+                    </div>
+
+                </div>
+
+                <h2 class="stat-number green-text">
+                    Active
+                </h2>
+
+                <p class="card-subtext">
+                    System operating normally
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="chart-section">
+
+            <div class="chart-card">
+
+                <div class="chart-header">
+
+                    <h2>
+                        Revenue Analytics
+                    </h2>
+
+                    <p>
+                        Monthly revenue overview
+                    </p>
+
+                </div>
+
+                <div class="chart-container">
+
+                    <canvas id="revenueChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="filter-bar">
+
+            <div class="search-box">
+
+                <input type="text"
+                       id="invoiceSearch"
+                       placeholder="Search invoices...">
+
+            </div>
+
+            <div class="filter-box">
+
+                <select id="statusFilter">
+
+                    <option value="all">
+                        All Status
+                    </option>
+
+                    <option value="Paid">
+                        Paid
+                    </option>
+
+                    <option value="Pending">
+                        Pending
+                    </option>
+
+                    <option value="Overdue">
+                        Overdue
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="table-wrapper">
+
+            <div class="table-header">
+
+                <h2>
+                    Recent Invoices
+                </h2>
+
+            </div>
+
+            <table class="modern-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Invoice ID</th>
+                        <th>Customer</th>
+                        <th>Date</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for invoice in invoices %}
+
+                    <tr class="invoice-row">
+
+                        <td>
+                            {{ invoice.invoice_id }}
+                        </td>
+
+                        <td>
+                            {{ invoice.customer_name }}
+                        </td>
+
+                        <td>
+                            {{ invoice.created_at.strftime('%d-%m-%Y') }}
+                        </td>
+
+                        <td>
+                            ₹{{ invoice.total }}
+                        </td>
+
+                        <td>
+
+                            <form action="/update-status/{{ invoice.id }}"
+                                  method="POST">
+
+                                <select name="status"
+                                        class="status-dropdown
+                                               {{ (invoice.status or 'Paid').lower() }}"
+
+                                        onchange="this.form.submit()">
+
+                                    <option value="Paid"
+                                        {% if invoice.status == 'Paid' %}
+                                            selected
+                                        {% endif %}>
+
+                                        Paid
+
+                                    </option>
+
+                                    <option value="Pending"
+                                        {% if invoice.status == 'Pending' %}
+                                            selected
+                                        {% endif %}>
+
+                                        Pending
+
+                                    </option>
+
+                                    <option value="Overdue"
+                                        {% if invoice.status == 'Overdue' %}
+                                            selected
+                                        {% endif %}>
+
+                                        Overdue
+
+                                    </option>
+
+                                </select>
+
+                            </form>
+
+                        </td>
+
+                        <td>
+
+                            <a href="/download/{{ invoice.invoice_id }}">
+
+                                <button class="download-btn">
+
+                                    Download
+
+                                </button>
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+window.onload = async function () {
+
+    const response =
+        await fetch('/revenue-data');
+
+    const chartData =
+        await response.json();
+
+    const ctx =
+        document.getElementById('revenueChart');
+
+    new Chart(ctx, {
+
+        type: 'bar',
+
+        data: {
+
+            labels: chartData.labels,
+
+            datasets: [{
+
+                label: 'Revenue',
+
+                data: chartData.revenue,
+
+                backgroundColor: [
+                    '#2563eb'
+                ],
+
+                borderRadius: 12,
+
+                borderSkipped: false
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            plugins: {
+
+                legend: {
+                    display: false
+                }
+
+            },
+
+            scales: {
+
+                y: {
+
+                    beginAtZero: true,
+
+                    grid: {
+                        color: '#e5e7eb'
+                    }
+
+                },
+
+                x: {
+
+                    grid: {
+                        display: false
+                    }
+
+                }
+
+            }
+
+        }
+
+    });
+
+};
+
+</script>
+
+<script>
+
+const searchInput =
+    document.getElementById('invoiceSearch');
+
+const statusFilter =
+    document.getElementById('statusFilter');
+
+const rows =
+    document.querySelectorAll('.invoice-row');
+
+function filterInvoices() {
+
+    const searchValue =
+        searchInput.value.toLowerCase();
+
+    const statusValue =
+        statusFilter.value;
+
+    rows.forEach(row => {
+
+        const text =
+            row.innerText.toLowerCase();
+
+        const status =
+            row.querySelector('.status-dropdown')
+               .value;
+
+        const matchesSearch =
+            text.includes(searchValue);
+
+        const matchesStatus =
+            statusValue === 'all' ||
+            status === statusValue;
+
+        if (matchesSearch && matchesStatus) {
+
+            row.style.display = '';
+
+        } else {
+
+            row.style.display = 'none';
+
+        }
+
+    });
+
+}
+
+searchInput.addEventListener(
+    'keyup',
+    filterInvoices
+);
+
+statusFilter.addEventListener(
+    'change',
+    filterInvoices
+);
+
+</script>
+
+</body>
+</html>
