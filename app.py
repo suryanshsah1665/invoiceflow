@@ -40,7 +40,7 @@ login_manager.init_app(app)
 
 login_manager.login_view = "login"
 app.config.from_object(Config)
-
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 db.init_app(app)
 
 migrate = Migrate(app, db)
