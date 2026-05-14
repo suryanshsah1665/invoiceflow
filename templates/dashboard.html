@@ -44,62 +44,69 @@
 
     <main class="main-content">
 
-        <div class="topbar">
+<div class="topbar">
 
-            <div>
+    <div class="topbar-left">
 
-    <p class="welcome-text">
+        <p class="welcome-text">
 
-        Welcome back,
+            Welcome back,
 
-        <span>
-            {{ current_user.username }}
-        </span>
+            <span>
+                {{ current_user.username }}
+            </span>
 
-    </p>
+        </p>
 
-    <h1 class="page-title">
-        Dashboard
-    </h1>
+        <h1 class="page-title">
+            Dashboard
+        </h1>
 
-    <p class="page-subtitle">
-        Manage all invoices from one place
-    </p>
+        <p class="page-subtitle">
+            Manage all invoices from one place
+        </p>
 
-</div>
+    </div>
 
-            <a href="/">
+    <div class="topbar-actions">
 
-                <button class="primary-btn">
+        <a href="/">
 
-                    + New Invoice
+            <button class="primary-btn">
 
-                </button>
+                + New Invoice
 
-            </a>
-            <a href="/logout">
+            </button>
 
-    <button class="logout-btn">
+        </a>
 
-        Logout
+        <a href="/logout">
 
-    </button>
+            <button class="logout-btn">
 
-</a>
-<div class="theme-switch">
+                Logout
 
-    <input type="checkbox"
-           id="themeToggle">
+            </button>
 
-    <label for="themeToggle" class="switch-label">
+        </a>
 
-        <span class="switch-ball"></span>
+        <div class="theme-switch">
 
-    </label>
+            <input type="checkbox"
+                   id="themeToggle">
 
-</div>
+            <label for="themeToggle"
+                   class="switch-label">
+
+                <span class="switch-ball"></span>
+
+            </label>
 
         </div>
+
+    </div>
+
+</div>
 
         <div class="stats-grid">
 
