@@ -6,33 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Invoice Generator</title>
-    <a href="/dashboard">
+    
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+<a href="/dashboard">
 
     <button class="secondary-btn">
         View Dashboard
     </button>
 
 </a>
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
-</head>
-
-<body>
-
 <div class="main-container">
-<div class="theme-switch">
 
-    <input type="checkbox"
-           id="themeToggle">
+    <div class="top-actions">
 
-    <label for="themeToggle"
-           class="switch-label">
+        <a href="/dashboard">
 
-        <span class="switch-ball"></span>
+            <button class="secondary-btn">
+                View Dashboard
+            </button>
 
-    </label>
+        </a>
 
-</div>
+        <div class="theme-switch">
+
+            <input type="checkbox"
+                   id="themeToggle">
+
+            <label for="themeToggle"
+                   class="switch-label">
+
+                <span class="switch-ball"></span>
+
+            </label>
+
+        </div>
+
+    </div>
     <div class="form-card">
 
         <h1 class="main-title">Invoice Generator</h1>
