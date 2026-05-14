@@ -919,8 +919,7 @@ textarea{
     font-weight: 600;
     color: #2563eb;
     user-select: none;
-}
-/* THEME SWITCH */
+}/* THEME SWITCH */
 
 .theme-switch{
     display:flex;
@@ -932,8 +931,8 @@ textarea{
 }
 
 .switch-label{
-    width:60px;
-    height:32px;
+    width:72px;
+    height:38px;
     background:#cbd5e1;
     border-radius:999px;
     position:relative;
@@ -944,23 +943,27 @@ textarea{
     padding:4px;
 }
 
-.switch-ball{
-    width:24px;
-    height:24px;
+.switch-icon{
+    width:30px;
+    height:30px;
     background:white;
     border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:15px;
     transition:0.3s ease;
-    box-shadow:0 2px 6px rgba(0,0,0,0.2);
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
 }
 
-/* ACTIVE */
+/* DARK MODE */
 
 .dark-mode .switch-label{
     background:#2563eb;
 }
 
-.dark-mode .switch-ball{
-    transform:translateX(28px);
+.dark-mode .switch-icon{
+    transform:translateX(34px);
 }
 *{
     transition:
