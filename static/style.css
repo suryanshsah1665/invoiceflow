@@ -968,3 +968,11 @@ textarea{
         color 0.3s ease,
         border-color 0.3s ease;
 }
+.top-actions{
+    position:absolute;
+    top:30px;
+    right:40px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
