@@ -39,13 +39,31 @@
         <h1>
             Welcome Back
         </h1>
+        
+<form method="POST">
 
-        <form method="POST">
+    {% with messages = get_flashed_messages(with_categories=true) %}
 
-            <input type="email"
-                   name="email"
-                   placeholder="Email"
-                   required>
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                <div class="flash-message {{ category }}">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+    <input type="email"
+           name="email"
+           placeholder="Email"
+           required>
 
             <div class="password-wrapper">
 
