@@ -779,3 +779,41 @@ hr {
     font-weight: 700;
 
 }
+:root{
+    --bg:#f4f5f7;
+    --card:#ffffff;
+    --text:#0f172a;
+}
+
+.dark-mode{
+    --bg:#0f172a;
+    --card:#1e293b;
+    --text:#f8fafc;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+}
+
+.invoice-box,
+.stat-card,
+.table-wrapper,
+.chart-section{
+    background:var(--card);
+}
+.password-wrapper{
+    position:relative;
+}
+
+.password-wrapper button{
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    border:none;
+    background:none;
+    cursor:pointer;
+    color:#2563eb;
+    font-weight:600;
+}
