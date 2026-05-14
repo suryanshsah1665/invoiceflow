@@ -26,10 +26,6 @@ class User(UserMixin, db.Model):
         db.String(255),
         nullable=False
     )
-    user_id = db.Column(
-        db.Integer,
-        db.ForeignKey('user.id')
-    )
 
 class Invoice(db.Model):
 
@@ -66,6 +62,10 @@ class Invoice(db.Model):
     status = db.Column(
         db.String(20),
         default="Paid"
+    )
+
+    payment_method = db.Column(
+    db.String(100)
     )
 
     user_id = db.Column(
