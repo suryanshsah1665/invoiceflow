@@ -6,7 +6,8 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #f3f4f6;
+    background: var(--bg-color);
+    color: var(--text-color);
 }
 
 .main-container {
@@ -18,7 +19,8 @@ body {
 }
 
 .form-card {
-    background: white;
+    background: var(--card-color);
+    color: var(--text-color)
     width: 100%;
     max-width: 900px;
     padding: 50px;
@@ -100,7 +102,7 @@ input:focus {
 }
 
 body.dashboard-page {
-    background: #eef2ff;
+    background: var(--bg-color);
     margin: 0;
 }
 
@@ -244,7 +246,7 @@ hr {
 }
 
 .table-container {
-    background: white;
+    background: var(--card-color);
     padding: 30px;
     border-radius: 14px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.08);
@@ -335,7 +337,7 @@ hr {
 .layout {
     display: flex;
     min-height: 100vh;
-    background: #f3f4f6;
+    background: var(--bg-color);
 }
 
 .sidebar {
@@ -530,7 +532,7 @@ hr {
 }
 
 .chart-card {
-    background: white;
+    background: var(--card-color);
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.06);
@@ -574,7 +576,7 @@ hr {
     border: 1px solid #d1d5db;
     border-radius: 14px;
     font-size: 15px;
-    background: white;
+    background: var(--card-color);
     outline: none;
 }
 
@@ -582,7 +584,8 @@ hr {
     padding: 14px 18px;
     border-radius: 14px;
     border: 1px solid #d1d5db;
-    background: white;
+    background: var(--card-color);
+    color: var(--text-color);
     font-size: 15px;
 }
 .paid {
@@ -651,7 +654,7 @@ hr {
     color: #991b1b;
 }
 .auth-page {
-    background: #f3f4f6;
+    background: var(--bg-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -878,17 +881,6 @@ textarea{
     position:relative;
 }
 
-.password-wrapper button{
-    position:absolute;
-    right:12px;
-    top:50%;
-    transform:translateY(-50%);
-    border:none;
-    background:none;
-    cursor:pointer;
-    color:#2563eb;
-    font-weight:600;
-}
 .password-wrapper{
     position: relative;
     width: 100%;
@@ -955,4 +947,10 @@ textarea{
 
 .dark-mode .switch-ball{
     transform:translateX(28px);
+}
+*{
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
 }
