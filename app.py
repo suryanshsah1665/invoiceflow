@@ -196,6 +196,7 @@ def download_invoice(invoice_id):
 def generate_invoice():
     status = request.form.get("status")
     customer_name = request.form.get("customer_name")
+    payment_method = request.form.get("payment_method")
     customer_email = request.form.get("customer_email")
 
     item_names = request.form.getlist("item_name")
