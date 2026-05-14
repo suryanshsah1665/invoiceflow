@@ -678,6 +678,11 @@ hr {
     align-items: center;
     height: 100vh;
 }
+.auth-page .theme-switch{
+    position:absolute;
+    top:30px;
+    right:40px;
+}
 
 .auth-container {
     width: 100%;
