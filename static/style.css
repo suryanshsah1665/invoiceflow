@@ -969,10 +969,19 @@ textarea{
 .dark-mode .switch-icon{
     transform:translateX(34px);
 }
-.dark-mode input,
-.dark-mode select,
+.dark-mode input::placeholder{
+    color:#94a3b8;
+}
+.dark-mode select{
+    color:#f8fafc;
+}
 .dark-mode textarea{
     background:#1e293b;
+}
+select{
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
 }
 *{
     transition:
