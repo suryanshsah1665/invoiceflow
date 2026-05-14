@@ -1067,3 +1067,20 @@ select{
 .dark-mode .secondary-btn:hover{
     background:#475569;
 }
+
+.flash-message{
+    padding:14px;
+    border-radius:12px;
+    margin-bottom:18px;
+    font-weight:600;
+}
+
+.flash-message.error{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+.dark-mode .flash-message.error{
+    background:#7f1d1d;
+    color:#fecaca;
+}
