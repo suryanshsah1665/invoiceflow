@@ -69,7 +69,7 @@ def register():
         ).first()
         if existing_user:
             flash("Email already exists", "error")
-return redirect("/register")
+            return redirect("/register")
         hashed_password = generate_password_hash(
             password
         )
@@ -305,9 +305,9 @@ def dashboard():
 def update_status(invoice_id):
 
     invoice = Invoice.query.filter_by(
-    id=invoice_id,
-    user_id=current_user.id
-).first_or_404()
+        id=invoice_id,
+        user_id=current_user.id
+    ).first_or_404()
 
     new_status = request.form.get("status")
 
