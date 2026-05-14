@@ -972,12 +972,7 @@ textarea{
 .dark-mode input::placeholder{
     color:#94a3b8;
 }
-.dark-mode select{
-    color:#f8fafc;
-}
-.dark-mode textarea{
-    background:#1e293b;
-}
+
 select{
     appearance:none;
     -webkit-appearance:none;
@@ -997,4 +992,73 @@ select{
     display:flex;
     align-items:center;
     gap:18px;
+}
+/* DARK MODE */
+
+.dark-mode{
+    background:#0f172a;
+    color:#f8fafc;
+}
+
+/* CARDS */
+
+.dark-mode .form-card,
+.dark-mode .auth-card,
+.dark-mode .stats-card,
+.dark-mode .billing-card{
+    background:#1e293b;
+    color:#f8fafc;
+}
+
+/* HEADINGS */
+
+.dark-mode .main-title,
+.dark-mode .page-title,
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3{
+    color:#f8fafc;
+}
+
+/* SUBTEXT */
+
+.dark-mode .subtitle,
+.dark-mode .page-subtitle,
+.dark-mode p,
+.dark-mode span{
+    color:#94a3b8;
+}
+
+/* INPUTS */
+
+.dark-mode input,
+.dark-mode select,
+.dark-mode textarea{
+    background:#0f172a;
+    border:1px solid #334155;
+    color:#f8fafc;
+}
+
+/* PLACEHOLDERS */
+
+.dark-mode input::placeholder,
+.dark-mode textarea::placeholder{
+    color:#64748b;
+}
+
+/* SELECT */
+
+.dark-mode select{
+    color:#f8fafc;
+}
+
+/* BUTTONS */
+
+.dark-mode .secondary-btn{
+    background:#334155;
+    color:white;
+}
+
+.dark-mode .secondary-btn:hover{
+    background:#475569;
 }
