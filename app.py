@@ -26,6 +26,7 @@ from flask_login import (
 from models import (
     db,
     User,
+    Customer,
     Invoice,
     InvoiceItem
 )
