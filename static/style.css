@@ -817,3 +817,28 @@ body{
     color:#2563eb;
     font-weight:600;
 }
+.password-wrapper{
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input{
+    width: 100%;
+    padding: 18px 70px 18px 20px;
+    border-radius: 14px;
+    border: 1px solid #d1d5db;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+#togglePassword{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2563eb;
+    user-select: none;
+}
