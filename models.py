@@ -88,6 +88,11 @@ class Invoice(db.Model):
     db.String(100)
     )
 
+    customer_id = db.Column(
+    db.Integer,
+    db.ForeignKey('customer.id')
+    )
+
     user_id = db.Column(
         db.Integer,
         db.ForeignKey('user.id')
