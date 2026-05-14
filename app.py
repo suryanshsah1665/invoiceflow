@@ -255,20 +255,19 @@ def generate_invoice():
         db.session.add(invoice_item)
 
     db.session.commit()
-
-return render_template(
-    "invoice.html",
-    customer_name=customer_name,
-    customer_email=customer_email,
-    items=items,
-    subtotal=subtotal,
-    tax=tax,
-    grand_total=grand_total,
-    invoice_id=invoice_unique_id,
-    payment_method=request.form.get("payment_method"),
-    date=datetime.now().strftime("%d-%m-%Y"),
-    show_download = True
-)
+    return render_template(
+        "invoice.html",
+        customer_name=customer_name,
+        customer_email=customer_email,
+        items=items,
+        subtotal=subtotal,
+        tax=tax,
+        grand_total=grand_total,
+        invoice_id=invoice_unique_id,
+        payment_method=request.form.get("payment_method"),
+        date=datetime.now().strftime("%d-%m-%Y"),
+        show_download = True
+    )
 
 @app.route("/dashboard")
 @login_required
