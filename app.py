@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from config import Config
-
+from flask import flash
 from flask import request
 from datetime import datetime
 import uuid
@@ -115,14 +115,16 @@ def login():
 
         if not user:
 
-            return "Invalid email"
+            flash("Invalid email", "error")
+            return redirect("/login")
 
         if not check_password_hash(
             user.password,
             password
         ):
 
-            return "Incorrect password"
+            flash("Wrong password", "error")
+            return redirect("/login")
 
         login_user(user)
 
