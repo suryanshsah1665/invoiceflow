@@ -133,6 +133,10 @@ body.dashboard-page {
     text-align: right;
     line-height: 1.8;
 }
+.invoice-page{
+    background:white !important;
+    color:black !important;
+}
 
 hr {
     margin: 30px 0;
@@ -965,11 +969,17 @@ textarea{
 .dark-mode .switch-icon{
     transform:translateX(34px);
 }
+.dark-mode input,
+.dark-mode select,
+.dark-mode textarea{
+    background:#1e293b;
+}
 *{
     transition:
-        background 0.3s ease,
-        color 0.3s ease,
-        border-color 0.3s ease;
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
 }
 .top-actions{
     position:absolute;
