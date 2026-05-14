@@ -914,3 +914,45 @@ textarea{
     color: #2563eb;
     user-select: none;
 }
+/* THEME SWITCH */
+
+.theme-switch{
+    display:flex;
+    align-items:center;
+}
+
+#themeToggle{
+    display:none;
+}
+
+.switch-label{
+    width:60px;
+    height:32px;
+    background:#cbd5e1;
+    border-radius:999px;
+    position:relative;
+    cursor:pointer;
+    transition:0.3s ease;
+    display:flex;
+    align-items:center;
+    padding:4px;
+}
+
+.switch-ball{
+    width:24px;
+    height:24px;
+    background:white;
+    border-radius:50%;
+    transition:0.3s ease;
+    box-shadow:0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* ACTIVE */
+
+.dark-mode .switch-label{
+    background:#2563eb;
+}
+
+.dark-mode .switch-ball{
+    transform:translateX(28px);
+}
