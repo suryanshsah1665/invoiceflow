@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from config import Config
 from flask import flash
-from flask import request
 from datetime import datetime
 import uuid
 from flask_migrate import Migrate
@@ -62,76 +61,51 @@ def home():
 def register():
 
     if request.method == "POST":
-
         username = request.form.get("username")
-
         email = request.form.get("email")
-
         password = request.form.get("password")
-
         existing_user = User.query.filter_by(
             email=email
         ).first()
-
         if existing_user:
-
-            return "Email already exists"
-
+            flash("Email already exists", "error")
+return redirect("/register")
         hashed_password = generate_password_hash(
             password
         )
-
         new_user = User(
-
             username=username,
-
             email=email,
-
             password=hashed_password
-
         )
 
         db.session.add(new_user)
-
         db.session.commit()
-
         return redirect("/login")
-
     return render_template("register.html")
-
 @app.route("/login",
            methods=["GET", "POST"])
 def login():
 
     if request.method == "POST":
-
         email = request.form.get("email")
-
         password = request.form.get("password")
-
         user = User.query.filter_by(
             email=email
         ).first()
-
         if not user:
-
             flash("Invalid email", "error")
             return redirect("/login")
-
         if not check_password_hash(
             user.password,
             password
         ):
-
             flash("Wrong password", "error")
             return redirect("/login")
-
         login_user(user)
-
         return redirect("/dashboard")
-
     return render_template("login.html")
-
+    
 @app.route("/logout")
 @login_required
 def logout():
@@ -174,6 +148,7 @@ def download_invoice(invoice_id):
         tax=invoice.tax,
         grand_total=invoice.total,
         invoice_id=invoice.invoice_id,
+        payment_method=invoice.payment_method,
         date=invoice.created_at.strftime("%d-%m-%Y"),
         show_download = False
     )
@@ -238,6 +213,7 @@ def generate_invoice():
         tax=tax,
         total=grand_total,
         status=status,
+        payment_method=payment_method,
         user_id=current_user.id
     )
 
@@ -325,9 +301,13 @@ def dashboard():
 
 @app.route("/update-status/<int:invoice_id>",
            methods=["POST"])
+@login_required
 def update_status(invoice_id):
 
-    invoice = Invoice.query.get_or_404(invoice_id)
+    invoice = Invoice.query.filter_by(
+    id=invoice_id,
+    user_id=current_user.id
+).first_or_404()
 
     new_status = request.form.get("status")
 
