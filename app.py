@@ -170,6 +170,7 @@ def download_invoice(invoice_id):
 @app.route("/generate", methods=["POST"])
 @login_required
 def generate_invoice():
+
     status = request.form.get("status")
     customer_name = request.form.get("customer_name")
     payment_method = request.form.get("payment_method")
@@ -205,28 +206,28 @@ def generate_invoice():
     grand_total = subtotal + tax
 
     invoice_unique_id = str(uuid.uuid4())[:8].upper()
-    
+
     existing_customer = Customer.query.filter_by(
-    email=customer_email,
-    user_id=current_user.id
-).first()
-
-if existing_customer:
-
-    customer = existing_customer
-
-else:
-
-    customer = Customer(
-        name=customer_name,
         email=customer_email,
         user_id=current_user.id
-    )
+    ).first()
 
-    db.session.add(customer)
+    if existing_customer:
 
-    db.session.commit()
-    
+        customer = existing_customer
+
+    else:
+
+        customer = Customer(
+            name=customer_name,
+            email=customer_email,
+            user_id=current_user.id
+        )
+
+        db.session.add(customer)
+
+        db.session.commit()
+
     invoice = Invoice(
         invoice_id=invoice_unique_id,
         customer_name=customer_name,
@@ -236,6 +237,7 @@ else:
         total=grand_total,
         status=status,
         payment_method=payment_method,
+        customer_id=customer.id,
         user_id=current_user.id
     )
 
@@ -256,6 +258,7 @@ else:
         db.session.add(invoice_item)
 
     db.session.commit()
+
     return render_template(
         "invoice.html",
         customer_name=customer_name,
@@ -267,9 +270,8 @@ else:
         invoice_id=invoice_unique_id,
         payment_method=request.form.get("payment_method"),
         date=datetime.now().strftime("%d-%m-%Y"),
-        show_download = True
+        show_download=True
     )
-
 @app.route("/dashboard")
 @login_required
 def dashboard():
