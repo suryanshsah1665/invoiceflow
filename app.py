@@ -205,7 +205,28 @@ def generate_invoice():
     grand_total = subtotal + tax
 
     invoice_unique_id = str(uuid.uuid4())[:8].upper()
+    
+    existing_customer = Customer.query.filter_by(
+    email=customer_email,
+    user_id=current_user.id
+).first()
 
+if existing_customer:
+
+    customer = existing_customer
+
+else:
+
+    customer = Customer(
+        name=customer_name,
+        email=customer_email,
+        user_id=current_user.id
+    )
+
+    db.session.add(customer)
+
+    db.session.commit()
+    
     invoice = Invoice(
         invoice_id=invoice_unique_id,
         customer_name=customer_name,
