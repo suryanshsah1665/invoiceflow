@@ -1084,3 +1084,20 @@ select{
     background:#7f1d1d;
     color:#fecaca;
 }
+.flash-message{
+
+    padding:12px 18px;
+
+    border-radius:10px;
+
+    margin-bottom:18px;
+
+    font-weight:600;
+}
+
+.flash-message.info{
+
+    background:#1e3a8a;
+
+    color:white;
+}
