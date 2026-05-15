@@ -34,6 +34,7 @@ if not os.path.exists(INVOICE_FOLDER):
     os.makedirs(INVOICE_FOLDER)
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "invoiceflowsecret"
 login_manager = LoginManager()
 
 login_manager.init_app(app)
