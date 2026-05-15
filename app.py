@@ -54,8 +54,17 @@ from werkzeug.security import (
     check_password_hash
 )
 @app.route("/")
+@login_required
 def home():
-    return render_template("index.html")
+
+    customers = Customer.query.filter_by(
+        user_id=current_user.id
+    ).all()
+
+    return render_template(
+        "index.html",
+        customers=customers
+    )
 
 @app.route("/register",
            methods=["GET", "POST"])
