@@ -53,7 +53,26 @@
         <form action="/generate" method="POST">
 
             <div class="input-group">
+<select id="customerSelect"
+        class="invoice-status-select">
 
+    <option value="">
+        Select Existing Customer
+    </option>
+
+    {% for customer in customers %}
+
+    <option
+        value="{{ customer.name }}"
+        data-email="{{ customer.email }}">
+
+        {{ customer.name }} ({{ customer.email }})
+
+    </option>
+
+    {% endfor %}
+
+</select>
                 <input
                     type="text"
                     name="customer_name"
@@ -231,6 +250,31 @@ themeToggle.addEventListener("change", () => {
 });
 
 </script>
+<script>
+
+const customerSelect =
+    document.getElementById("customerSelect");
+
+const customerName =
+    document.getElementById("customer_name");
+
+const customerEmail =
+    document.getElementById("customer_email");
+
+customerSelect.addEventListener("change", () => {
+
+    const selected =
+        customerSelect.options[
+            customerSelect.selectedIndex
+        ];
+
+    customerName.value = selected.value;
+
+    customerEmail.value =
+        selected.getAttribute("data-email");
+
+});
+
 </script>
 </body>
 </html>
