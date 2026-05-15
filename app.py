@@ -222,7 +222,7 @@ def generate_invoice():
     ).first()
 
     if existing_customer:
-
+        flash("Customer already exists", "info")
         customer = existing_customer
 
     else:
