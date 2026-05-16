@@ -69,7 +69,8 @@
         <form action="/generate" method="POST">
 
             <div class="input-group">
-<select id="customerSelect"
+                <div id ="customerMessage"></div>
+            <select id="customerSelect"
         class="invoice-status-select">
 
     <option value="">
@@ -270,6 +271,22 @@ themeToggle.addEventListener("change", () => {
 </script>
 <script>
 
+const customers = [
+
+    {% for customer in customers %}
+
+    {
+        name: "{{ customer.name }}",
+        email: "{{ customer.email }}"
+    },
+
+    {% endfor %}
+
+];
+
+</script>
+<script>
+
 const customerSelect =
     document.getElementById("customerSelect");
 
@@ -278,9 +295,37 @@ const customerName =
 
 const customerEmail =
     document.getElementById("customer_email");
+const customerMessage =
+    document.getElementById("customerMessage");
 
 customerSelect.addEventListener("change", () => {
+    emailInput = document.getElementById("customer_email");
 
+emailInput.addEventListener("input", () => {
+
+    const enteredEmail =
+        emailInput.value.trim().toLowerCase();
+
+    const existingCustomer =
+        customers.find(customer =>
+            customer.email.toLowerCase() === enteredEmail
+        );
+
+    if(existingCustomer){
+
+        customerName.value =
+            existingCustomer.name;
+
+        customerMessage.innerHTML =
+            "Existing customer detected";
+
+    } else {
+
+        customerMessage.innerHTML = "";
+
+    }
+
+});
     const selected =
         customerSelect.options[
             customerSelect.selectedIndex
