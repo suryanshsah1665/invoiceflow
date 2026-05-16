@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Invoice</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+                           filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="main-container">
+
+    <div class="form-card">
+
+        <h1 class="main-title">
+            Edit Invoice
+        </h1>
+
+        <p class="subtitle">
+            Update invoice details
+        </p>
+
+        <form action="/update/{{ invoice.invoice_id }}"
+              method="POST">
+
+            <div class="input-group">
+
+                <input
+                    type="text"
+                    name="customer_name"
+                    value="{{ invoice.customer_name }}"
+                    required
+                >
+
+                <input
+                    type="email"
+                    name="customer_email"
+                    value="{{ invoice.customer_email }}"
+                    required
+                >
+
+                <select name="status"
+                        class="invoice-status-select">
+
+                    <option value="Paid"
+                    {% if invoice.status == "Paid" %}
+                    selected
+                    {% endif %}
+                    >
+                        Paid
+                    </option>
+
+                    <option value="Pending"
+                    {% if invoice.status == "Pending" %}
+                    selected
+                    {% endif %}
+                    >
+                        Pending
+                    </option>
+
+                    <option value="Overdue"
+                    {% if invoice.status == "Overdue" %}
+                    selected
+                    {% endif %}
+                    >
+                        Overdue
+                    </option>
+
+                </select>
+
+                <select name="payment_method"
+                        class="invoice-status-select">
+
+                    <option value="Bank Transfer"
+                    {% if invoice.payment_method == "Bank Transfer" %}
+                    selected
+                    {% endif %}
+                    >
+                        Bank Transfer
+                    </option>
+
+                    <option value="UPI"
+                    {% if invoice.payment_method == "UPI" %}
+                    selected
+                    {% endif %}
+                    >
+                        UPI
+                    </option>
+
+                    <option value="Cash"
+                    {% if invoice.payment_method == "Cash" %}
+                    selected
+                    {% endif %}
+                    >
+                        Cash
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div id="items">
+
+                {% for item in items %}
+
+                <div class="item-row">
+
+                    <input
+                        type="text"
+                        name="item_name"
+                        value="{{ item.item_name }}"
+                        required
+                    >
+
+                    <input
+                        type="number"
+                        name="quantity"
+                        value="{{ item.quantity }}"
+                        required
+                    >
+
+                    <input
+                        type="number"
+                        step="0.01"
+                        name="price"
+                        value="{{ item.price }}"
+                        required
+                    >
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            <div class="button-group">
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="addItem()"
+                >
+                    Add Item
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                >
+                    Update Invoice
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+function addItem() {
+
+    const div = document.createElement("div");
+
+    div.classList.add("item-row");
+
+    div.innerHTML = `
+
+        <input
+            type="text"
+            name="item_name"
+            placeholder="Item Name"
+            required
+        >
+
+        <input
+            type="number"
+            name="quantity"
+            placeholder="Quantity"
+            required
+        >
+
+        <input
+            type="number"
+            step="0.01"
+            name="price"
+            placeholder="Price"
+            required
+        >
+    `;
+
+    document.getElementById("items")
+            .appendChild(div);
+}
+
+</script>
+
+</body>
+</html>
