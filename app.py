@@ -185,9 +185,20 @@ def view_invoice(invoice_id):
         user_id=current_user.id
     ).first_or_404()
 
-    items = InvoiceItem.query.filter_by(
+    invoice_items = InvoiceItem.query.filter_by(
         invoice_id=invoice.id
     ).all()
+
+    items = []
+
+    for item in invoice_items:
+
+        items.append({
+            "name": item.item_name,
+            "qty": item.quantity,
+            "price": item.price,
+            "total": item.total
+        })
 
     return render_template(
         "invoice.html",
