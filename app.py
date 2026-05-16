@@ -214,6 +214,25 @@ def view_invoice(invoice_id):
         show_download=False
     )
 
+@app.route("/edit/<invoice_id>")
+@login_required
+def edit_invoice(invoice_id):
+
+    invoice = Invoice.query.filter_by(
+        invoice_id=invoice_id,
+        user_id=current_user.id
+    ).first_or_404()
+
+    items = InvoiceItem.query.filter_by(
+        invoice_id=invoice.id
+    ).all()
+
+    return render_template(
+        "edit_invoice.html",
+        invoice=invoice,
+        items=items
+    )
+
 @app.route("/generate", methods=["POST"])
 @login_required
 def generate_invoice():
