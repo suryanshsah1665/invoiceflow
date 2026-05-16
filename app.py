@@ -176,6 +176,32 @@ def download_invoice(invoice_id):
         as_attachment=True
     )
 
+@app.route("/invoice/<invoice_id>")
+@login_required
+def view_invoice(invoice_id):
+
+    invoice = Invoice.query.filter_by(
+        invoice_id=invoice_id,
+        user_id=current_user.id
+    ).first_or_404()
+
+    items = InvoiceItem.query.filter_by(
+        invoice_id=invoice.id
+    ).all()
+
+    return render_template(
+        "invoice.html",
+        customer_name=invoice.customer_name,
+        customer_email=invoice.customer_email,
+        items=items,
+        subtotal=invoice.subtotal,
+        tax=invoice.tax,
+        grand_total=invoice.total,
+        invoice_id=invoice.invoice_id,
+        payment_method=invoice.payment_method,
+        date=invoice.created_at.strftime("%d-%m-%Y"),
+        show_download=False
+    )
 
 @app.route("/generate", methods=["POST"])
 @login_required
