@@ -366,16 +366,33 @@
                         </td>
 
                         <td>
+                            <div class="action-buttons">
 
-                            <a href="/download/{{ invoice.invoice_id }}">
+    <a href="/invoice/{{ invoice.invoice_id }}">
 
-                                <button class="download-btn">
+        <button class="secondary-btn">
+            View
+        </button>
 
-                                    Download
+    </a>
 
-                                </button>
+    <a href="/download/{{ invoice.invoice_id }}">
 
-                            </a>
+        <button class="primary-btn">
+            Download
+        </button>
+
+    </a>
+
+    <a href="/edit/{{ invoice.invoice_id }}">
+
+        <button class="warning-btn">
+            Edit
+        </button>
+
+    </a>
+
+</div>
 
                         </td>
 
