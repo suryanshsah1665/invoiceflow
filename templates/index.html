@@ -284,9 +284,6 @@ const customers = [
 
 ];
 
-</script>
-<script>
-
 const customerSelect =
     document.getElementById("customerSelect");
 
@@ -295,16 +292,32 @@ const customerName =
 
 const customerEmail =
     document.getElementById("customer_email");
+
 const customerMessage =
     document.getElementById("customerMessage");
 
-customerSelect.addEventListener("change", () => {
-    emailInput = document.getElementById("customer_email");
+/* DROPDOWN SELECT */
 
-emailInput.addEventListener("input", () => {
+customerSelect.addEventListener("change", () => {
+
+    const selected =
+        customerSelect.options[
+            customerSelect.selectedIndex
+        ];
+
+    customerName.value = selected.value;
+
+    customerEmail.value =
+        selected.getAttribute("data-email");
+
+});
+
+/* LIVE EMAIL DETECTION */
+
+customerEmail.addEventListener("input", () => {
 
     const enteredEmail =
-        emailInput.value.trim().toLowerCase();
+        customerEmail.value.trim().toLowerCase();
 
     const existingCustomer =
         customers.find(customer =>
@@ -324,17 +337,6 @@ emailInput.addEventListener("input", () => {
         customerMessage.innerHTML = "";
 
     }
-
-});
-    const selected =
-        customerSelect.options[
-            customerSelect.selectedIndex
-        ];
-
-    customerName.value = selected.value;
-
-    customerEmail.value =
-        selected.getAttribute("data-email");
 
 });
 
